@@ -31,3 +31,4 @@ valor = lista[random.randrange(100)]
 tree = BinaryTree.buildTree(lista)
 '''
 print('{0:15} : {1}'.format('BinaryTree',timeit.timeit(stmt2,setup2, number=repeticoes )))
+#teste2
