@@ -27,4 +27,5 @@ lista = gera_lista(100,{tipo_lista})
 '''.format(_algoritmo=algoritmo,tipo_lista=tipo)
         print('{0:15} : {1}'.format(algoritmo,timeit.timeit(stmt,setup4, number=repeticoes )))          
     print('-'*50)
-#olá
+#ola
+#e assim
