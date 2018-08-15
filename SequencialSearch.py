@@ -11,4 +11,3 @@ def Search(A,t):
         if A[i] == t:
             return True
     return False
-#teste
