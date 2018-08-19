@@ -1,4 +1,4 @@
-#fonte: https://github.com/Squiercg/recologia/blob/master/python/grafos/grafos.py
+#Com base em: https://github.com/Squiercg/recologia/blob/master/python/grafos/grafos.py
 import matplotlib.pyplot as plt
 import networkx as nx
 
@@ -6,7 +6,8 @@ class Graph:
 
 	#Contrutor para grafo vazio ou com um argumento, o numero de vertices
 	def __init__(self,V=None):
-
+		self.g = nx.MultiGraph()
+		self.pos = None
 		if V is not None:
 			self.V=V
 			self.E=0
@@ -25,13 +26,14 @@ class Graph:
 				v=int(entrada[0])
 				w=int(entrada[1])
 				self.addEdge(v,w)
-	
+		
 	#Funcao que cria a lista de adjacencia, usada no construtor
 	def adj_Lista(self):
 		self.adj=[]
-		for _ in range(self.V):
+		for i in range(self.V):
 			self.adj.append([])
-
+			self.g.add_node(i)
+		
 	#Retorna o numero de vertices
 	def vertices(self):
 		return self.V
@@ -43,6 +45,7 @@ class Graph:
 	def addEdge(self,v,w):
 		self.adj[v].append(w)
 		self.E+=1
+		self.g.add_edge(v,w)
 
 	#representando como string
 	def __str__(self):
@@ -104,31 +107,14 @@ class Graph:
 			if self.visitado[i] == False:
 				self.dfs(i)
 
+	
+	def setLayout(self):
+		self.pos = nx.spring_layout(self.g)
 	def plot(self):
-		g = nx.Graph()
-		#g = nx.house_graph()
-		 
-		for i in range(self.V):
-			g.add_node(i)
-
-
-		v=0
-		n=0
-		i=0
-
-		while v < self.V:
-			n = len(self.adj[v])
-			if n>0:
-				while i < n:
-					g.add_edge(v,self.adj[v][i])
-					i+=1
-			v+=1
-			i=0
-		pos = nx.spring_layout(g)
-		nx.draw_networkx_nodes(g, pos, node_size=700)
-		nx.draw_networkx_edges(g, pos, width=6)
-		nx.draw_networkx_labels(g, pos, font_size=20, font_family='sans-serif')
+		if self.pos is None:
+			self.setLayout()
+		nx.draw_networkx_nodes(self.g, self.pos, node_size=700)
+		nx.draw_networkx_edges(self.g, self.pos, width=6)
+		nx.draw_networkx_labels(self.g, self.pos, font_size=20, font_family='sans-serif')
 		plt.axis('off')
 		plt.show()
-		#layout = g.layout("kk")
-		#igraph.plot(g, layout = layout,vertex_label=range(self.V),vertex_size=30)
