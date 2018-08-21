@@ -8,6 +8,7 @@ class Graph:
 	def __init__(self,V=None):
 		self.g = nx.MultiGraph()
 		self.pos = None
+		self.peso ={}
 		if V is not None:
 			self.V=V
 			self.E=0
@@ -30,9 +31,11 @@ class Graph:
 	#Funcao que cria a lista de adjacencia, usada no construtor
 	def adj_Lista(self):
 		self.adj=[]
+		self.nodeColor=[]
 		for i in range(self.V):
 			self.adj.append([])
 			self.g.add_node(i)
+			self.nodeColor.append('r')
 		
 	#Retorna o numero de vertices
 	def vertices(self):
@@ -42,10 +45,11 @@ class Graph:
 		return self.E
 
 	#metodo para adicionar arestas
-	def addEdge(self,v,w):
+	def addEdge(self,v,w,p = 1):
 		self.adj[v].append(w)
 		self.E+=1
 		self.g.add_edge(v,w)
+		self.peso[(v,w)] = p
 
 	#representando como string
 	def __str__(self):
@@ -63,6 +67,20 @@ class Graph:
 			if n>0:
 				while i < n:
 					print(v,self.adj[v][i])
+					i+=1
+			v+=1
+			i=0
+	#imprimindo arestas com pesos
+	def imprime_arestas_peso(self):
+		v=0
+		n=0
+		i=0
+
+		while v < self.V:
+			n = len(self.adj[v])
+			if n>0:
+				while i < n:
+					print(v,self.adj[v][i],' = ',self.peso[(v,self.adj[v][i])])
 					i+=1
 			v+=1
 			i=0
@@ -107,14 +125,17 @@ class Graph:
 			if self.visitado[i] == False:
 				self.dfs(i)
 
-	
+	#define layout do grafo
 	def setLayout(self):
 		self.pos = nx.spring_layout(self.g)
+	#plota o grafico
 	def plot(self):
 		if self.pos is None:
 			self.setLayout()
-		nx.draw_networkx_nodes(self.g, self.pos, node_size=700)
-		nx.draw_networkx_edges(self.g, self.pos, width=6)
+		for i in range(self.V):
+			nx.draw_networkx_nodes(self.g, self.pos,nodelist=[i],
+                       node_color=self.nodeColor[i], node_size=700)
+		nx.draw_networkx_edges(self.g, self.pos,  width=6)
 		nx.draw_networkx_labels(self.g, self.pos, font_size=20, font_family='sans-serif')
 		plt.axis('off')
 		plt.show()
