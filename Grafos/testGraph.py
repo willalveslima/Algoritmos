@@ -2,6 +2,7 @@ from Grafo  import Graph
 import depthFirst
 import breadthFirst
 import dijkstraPQ
+import dijkstraDG
 
 grafo = Graph(9)
 grafo.addEdge(0,1)
@@ -45,6 +46,7 @@ grafo.plot()
 print('*'*50)
 print("dijkstraPQ:")
 
-grafoD.plot()  
+#grafoD.plot()  
 dijkstraPQ.singleSourceShortest(grafoD,0)
-
+print("dijkstraDG:")
+dijkstraDG.singleSourceShortest(grafoD,0)
