@@ -124,6 +124,9 @@ class Graph:
 		for i in self.adj[origem]:
 			if self.visitado[i] == False:
 				self.dfs(i)
+	def repintar(self):
+		for i in range(len(self.nodeColor)):
+			self.nodeColor[i] = 'r'
 
 	#define layout do grafo
 	def setLayout(self):
