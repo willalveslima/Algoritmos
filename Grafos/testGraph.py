@@ -26,7 +26,7 @@ grafoD.addEdge(2,4,1)
 grafoD.addEdge(2,3,5)
 grafoD.addEdge(4,3,4)
 grafoD.addEdge(3,0,8)
-'''
+
 grafo.imprime_arestas()
 print(grafo.connected())
 grafo.plot()
@@ -42,11 +42,10 @@ breadthFirst.Search(grafo,0)
 grafo.plot()
 grafo.repintar()
 grafo.plot()
-'''
+
+grafoD.plot()  
 print('*'*50)
 print("dijkstraPQ:")
-
-#grafoD.plot()  
 dijkstraPQ.singleSourceShortest(grafoD,0)
 print("dijkstraDG:")
 dijkstraDG.singleSourceShortest(grafoD,0)
